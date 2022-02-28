@@ -14,7 +14,9 @@ export function NewTransactionModal({ onIsOpen, onIsRequestClose }: NewTransacti
             overlayClassName="react-modal-overlay"
             className="react-modal-content"
         >
-            <button type="button" onClick={onIsRequestClose}>
+            <button type="button" 
+            onClick={onIsRequestClose} 
+            className="react-modal-close">
                 <img src={closeImg} alt="Fechar modal"/>
             </button>
             <Container>
