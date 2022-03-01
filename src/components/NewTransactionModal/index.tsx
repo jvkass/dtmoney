@@ -3,15 +3,29 @@ import { Container, TransactionTypeContainer, RadioBox } from "./styles";
 import closeImg from "../../assets/close.svg";
 import incomeImg from "../../assets/income.svg"
 import outcomeImg from "../../assets/outcome.svg"
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 interface NewTransactionModalProps {
     onIsOpen: boolean;
     onIsRequestClose: () => void;
 }
 
 export function NewTransactionModal({ onIsOpen, onIsRequestClose }: NewTransactionModalProps) {
+    const [title,setTitle] = useState('');
+    const [value,setValue] = useState(0);
+    const [category,setCategory] = useState(0);
     const [type,setType] = useState('deposit');
     
+    function handleCreateNewTransaction(event: FormEvent){
+        event.preventDefault(); 
+
+        console.log({
+            title,
+            value,
+            category,
+            type
+        });
+    }
+
     return (
         <Modal
             isOpen={onIsOpen}
@@ -24,16 +38,20 @@ export function NewTransactionModal({ onIsOpen, onIsRequestClose }: NewTransacti
             className="react-modal-close">
                 <img src={closeImg} alt="Fechar modal"/>
             </button>
-            <Container>
+            <Container onSubmit={handleCreateNewTransaction}>
                 <h2>Cadastrar transação</h2>
 
                 <input
                     placeholder="Titulo"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
                 />
 
                 <input
                     type="number"
                     placeholder="Valor"
+                    value={value}
+                    onChange={e => setValue(Number(e.target.value))}
                 />
 
                 <TransactionTypeContainer>
@@ -59,6 +77,8 @@ export function NewTransactionModal({ onIsOpen, onIsRequestClose }: NewTransacti
 
                 <input
                     placeholder="Categoria"
+                    value={category}
+                    onChange={e => setCategory(Number(e.target.value))}
                 />
 
                 <button type="submit">Cadastrar</button>
